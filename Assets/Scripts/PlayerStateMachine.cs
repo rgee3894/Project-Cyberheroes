@@ -44,8 +44,7 @@ public class PlayerStateMachine : MonoBehaviour {
 
 	}
 
-    void UpgradeProgressBar()
-    {
+    void UpgradeProgressBar(){
 
     }
 }
