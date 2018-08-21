@@ -14,6 +14,6 @@ public class SliderTextUpdate : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void textUpdate (float value) {
-        percentageText.text = Mathf.RoundToInt(value) +"";
+        percentageText.text = "X"+Mathf.RoundToInt(value) ;
 	}
 }
