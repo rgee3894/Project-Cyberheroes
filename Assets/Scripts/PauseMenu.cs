@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public AudioSource pauseSFX;
-    public AudioSource resumeSFX;
+    public AudioSource bgMusic;
+    public string mainMenuLevel;
 	
 	// Update is called once per frame
 	void Update () {
@@ -21,8 +23,9 @@ public class PauseMenu : MonoBehaviour {
     }
 
     // Resume current game
-    void Resume()
+    public void Resume()
     {
+        bgMusic.volume *= 2.0f;
         pauseSFX.Play();
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
@@ -30,11 +33,23 @@ public class PauseMenu : MonoBehaviour {
     }
 
     // Pause game
-    void Pause()
+    public void Pause()
     {
+        bgMusic.volume *= 0.5f;
         pauseMenuUI.SetActive(true);
-        resumeSFX.Play();
+        pauseSFX.Play();
         Time.timeScale = 0f;            //freeze the game
         GameIsPaused = true;
+    }
+
+    public void Restart()
+    {
+
+    }
+
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(mainMenuLevel);
     }
 }
