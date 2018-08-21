@@ -10,7 +10,9 @@ public class SliderTextUpdate : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         percentageText = GetComponent<Text>();
-	}
+        percentageText.text = "X2";
+
+    }
 	
 	// Update is called once per frame
 	public void textUpdate (float value) {
