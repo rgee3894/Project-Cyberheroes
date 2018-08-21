@@ -3416,6 +3416,7 @@ MonoBehaviour:
   setupPanel: {fileID: 2128981608}
   battlePanel: {fileID: 1475590669}
   clock: {fileID: 695670576}
+  pauseMenu: {fileID: 977828883}
 --- !u!224 &540761647
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5762,7 +5763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &977828884
 MonoBehaviour:
   m_ObjectHideFlags: 0

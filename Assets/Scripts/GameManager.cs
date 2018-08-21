@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private bool setupPhase, battlePhase;
     public GameObject setupPanel, battlePanel;
     public PlayerClock clock;
+    public GameObject pauseMenu;
 
     // Use this for initialization
     void Start()
@@ -34,6 +35,8 @@ public class GameManager : MonoBehaviour
             battlePanel.active = false;
         }
 
-
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            pauseMenu.SetActive(true);
+        }
     }
 }
