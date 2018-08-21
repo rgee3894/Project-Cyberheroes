@@ -5,12 +5,11 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour {
 
 	public string nextLevel;
-	public AudioClip musicClip;
 	public AudioSource musicSource;
 
 	void start() {
-		musicSource.clip = musicClip;
-		musicClip.Play();
+        if(musicSource != null)
+            musicSource.Play();
 	}
 
 	public void PlayGame() {
