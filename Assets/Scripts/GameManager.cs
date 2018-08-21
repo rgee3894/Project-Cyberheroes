@@ -35,8 +35,5 @@ public class GameManager : MonoBehaviour
             battlePanel.active = false;
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            pauseMenu.SetActive(true);
-        }
     }
 }
