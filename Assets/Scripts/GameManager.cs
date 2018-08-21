@@ -22,16 +22,16 @@ public class GameManager : MonoBehaviour
     {
         if (setupPhase)
         {
-            setupPanel.active = true;
-            battlePanel.active = false;
+            setupPanel.SetActive(true);
+            battlePanel.SetActive(false);
             
             
 
         }
         else
         {
-            setupPanel.active = true;
-            battlePanel.active = false;
+            setupPanel.SetActive(false);
+            battlePanel.SetActive(true);
         }
 
 
