@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerStateMachine : MonoBehaviour {
 
-    public Player player = new Player();
+    public Player mecha = new Player();
 
     private ProblemGenerator problemGenerator;
 
@@ -33,17 +33,22 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public bool madeProblem;
 
+    private Animator anim;
+
 
 	// Use this for initialization
 	void Start () {
 		currentState = TurnState.START;
         answeredCorrectly = false;
+        anim = this.gameObject.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         switch (currentState)
         {
+            
+            //During setup phase where the problem is made and shown to the player.
             case (TurnState.ANSWERING):
             answeredCorrectly = false;
             answered = false;
@@ -54,8 +59,10 @@ public class PlayerStateMachine : MonoBehaviour {
             }
             break;
 
+            //During setup phase where the player answered. 
+            //The energy tank animation occurs here and also checking of the answer.
             case (TurnState.WAITING):
-            if(startValue != playerAnswer)
+            if(startValue != playerAnswer)//If the energy tank is not yet done
             {
                 if(problemGenerator.IsMultiplication())
                     startValue++;
@@ -63,16 +70,12 @@ public class PlayerStateMachine : MonoBehaviour {
 
                 energyTank.setValue(startValue);
             }
-            else
+            else //If animating the energy tank is done
             {
-
-                checkAnswer();
-
+                checkAnswer();//Check the answer
                 madeProblem = false;
-                currentState = TurnState.ACTION;
+                currentState = TurnState.ACTION; //This makes the GameManager go to Battle Phase
             }
-
-
             break;
 
             case (TurnState.ACTION):
@@ -87,6 +90,11 @@ public class PlayerStateMachine : MonoBehaviour {
         }
 
 	}
+
+    public void attackAnim()
+    {
+        this.anim.Play("Kick");
+    }
 
     private void makeProblem()
     {

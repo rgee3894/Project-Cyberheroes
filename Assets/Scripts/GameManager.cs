@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
 
     private ProblemGenerator pg; 
 
+    public SimpleHealthBar playerHealthBar;
+
+    public SimpleHealthBar enemyHealthBar;
+
     // Use this for initialization
     void Start()
     {
@@ -36,15 +40,51 @@ public class GameManager : MonoBehaviour
             setupPanel.SetActive(false);
             battlePanel.SetActive(true);
 
-            //If player answered correctly, player attack monster (player.player.attack(enemy.monster);)
-            //else, monster attack player
+            if(player.answeredCorrectly)
+            {
+                Debug.Log("Player attacks monster!");
+                player.attackAnim(); //PERFORM PLAYER ATTACK ANIMATION HERE
+                player.mecha.Attack(enemy.monster);
+                //PERFORM ENEMY HURT ANIMATION HERE
+                Debug.Log("Enemy Health: " + enemy.monster.GetHealth() + "/" + enemy.monster.GetMaxHealth());
+                enemyHealthBar.UpdateBar(enemy.monster.GetHealth(), enemy.monster.GetMaxHealth());
 
-            //if player health > 0
-            ////if monster health <= 0, Show win screen.
-            ////else change state to ANSWERING
-            //else Change state to DEAD. Show lose screen.
+            }
+            else
+            {   
+                Debug.Log("Monster attacks player!");
+                //PERFORM ENEMY ATTACK ANIMATION HERE
+                player.mecha.TakeDamage(enemy.monster);
+                //PERFORM PLAYER HURT ANIMATION HERE IF ANY
+                Debug.Log("Player Health: " + player.mecha.GetHealth() + "/" + player.mecha.GetMaxHealth());
+                playerHealthBar.UpdateBar(player.mecha.GetHealth(), player.mecha.GetMaxHealth());
+            }
 
-            //player.currentState = PlayerStateMachine.TurnState.ANSWERING;
+            //ADD A TIME DELAY HERE (Wait for a few seconds before proceeding to the below code)
+            
+            //PSEUDOCODE FOR WINNING AND LOSING
+            /*
+            if player health > 0
+            {
+                if monster health <= 0 {
+                    PERFORM ENEMY DEATH ANIMATION
+                    Show Win Screen
+                }
+                else
+                {
+                    player.currentState = PlayerStateMachine.TurnState.ANSWERING
+                }
+            }
+            else
+            {
+                PERFORM PLAYER DEATH ANIMATION
+                player.currentState = PlayerStateMachine.TurnState.DEAD
+                Show Lose Screen
+            }
+             */
+
+            //COMMENT THIS LINE OUT ONCE YOU'VE IMPLEMENTED THE ABOVE PSEUDOCODE
+            player.currentState = PlayerStateMachine.TurnState.ANSWERING;
 
         }
 
