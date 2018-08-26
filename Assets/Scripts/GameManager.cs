@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool setupPhase, battlePhase;
     public GameObject setupPanel, battlePanel;
     public PlayerClock clock;
+    public GameObject pauseMenu;
 
     public GameObject previewCamera;
 
