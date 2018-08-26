@@ -11,14 +11,16 @@ public class GameManager : MonoBehaviour
     public PlayerClock clock;
     public GameObject pauseMenu;
 
-    public GameObject previewCamera;
+    public PlayerStateMachine player; 
+    public EnemyStateMachine enemy;
 
-    private Animator anim;
+    private ProblemGenerator pg; 
 
     // Use this for initialization
     void Start()
     {
-
+        setupPhase = false;
+        battlePhase = false;
     }
 
     // Update is called once per frame
@@ -28,32 +30,42 @@ public class GameManager : MonoBehaviour
         {
             setupPanel.SetActive(true);
             battlePanel.SetActive(false);
+            
         }
         else if(battlePhase)
         {
+            
             setupPanel.SetActive(false);
             battlePanel.SetActive(true);
+
+            //If player answered correctly, player attack monster (player.player.attack(enemy.monster);)
+            //else, monster attack player
+
+            //if player health > 0
+            ////if monster health <= 0, Show win screen.
+            ////else change state to ANSWERING
+            //else Change state to DEAD. Show lose screen.
+
+            //player.currentState = PlayerStateMachine.TurnState.ANSWERING;
+
         }
 
-    }
-
-    IEnumerator playAndWaitForAnim(GameObject target, string stateName)
-    {
-        int animLayer = 0;
-
-        Animator anim = target.GetComponent<Animator>();
-        anim.Play(stateName);
-
-        //Wait until Animator is done playing
-        while (anim.GetCurrentAnimatorStateInfo(animLayer).IsName(stateName) &&
-            anim.GetCurrentAnimatorStateInfo(animLayer).normalizedTime < 1.0f)
+        
+        if(player.currentState == PlayerStateMachine.TurnState.ACTION)
         {
-            //Wait every frame until animation has finished
-            yield return null;
+            setupPhase = false;
+            battlePhase = true; 
         }
+        else if(player.currentState == PlayerStateMachine.TurnState.ANSWERING)
+        {
+            setupPhase = true;
+            battlePhase = false;
+        }
+        
+        
 
-        //Done playing. Do something below!
-        Debug.Log("Done Playing");
     }
+
+    
 
 }

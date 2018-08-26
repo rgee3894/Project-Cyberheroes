@@ -14,35 +14,37 @@ public class ProblemGenerator{
         else
             isMultiplication = false;
         
+        bool isDivisible = false;
+        firstOperand = Random.Range(1,10);
+        secondOperand = Random.Range(2,10);
+        answer = firstOperand * secondOperand;
 
-        firstOperand = Mathf.RoundToInt(Random.Range(2, 100));
-        secondOperand = Mathf.RoundToInt(Random.Range(firstOperand,100));
+        if(!isMultiplication)
+        {
+            int temp = firstOperand;
+            firstOperand = answer;
+            answer = temp;
 
-        if (isMultiplication)
-            answer = firstOperand * secondOperand;
-        else
-            answer = secondOperand / firstOperand;
-
-        answer = Mathf.RoundToInt(answer);
+        }
 
     }
 
-    private bool getOperation()
+    public bool IsMultiplication()
     {
         return isMultiplication;
     }
 
-    private int getFirstOperand()
+    public int GetFirstOperand()
     {
         return firstOperand;
     }
 
-    private int getSecondOperand()
+    public int GetSecondOperand()
     {
         return secondOperand;
     }
 
-    private int getAnswer()
+    public int GetAnswer()
     {
         return answer;
     }
