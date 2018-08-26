@@ -13,25 +13,30 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public Slider answerSlider;
 
-    private int playerAnswer;
+    public PowerBar pb;
 
-    public bool answeredCorrectly;
+    private int playerAnswer, startValue;
+
+    public bool answeredCorrectly, answered;
 
     public enum TurnState
     {
         ANSWERING,
         WAITING,
         ACTION,
-        DEAD
+        DEAD,
+
+        START
     }
 
     public TurnState currentState;
 
-    private bool madeProblem;
+    public bool madeProblem;
+
 
 	// Use this for initialization
 	void Start () {
-		currentState = TurnState.ANSWERING;
+		currentState = TurnState.START;
         answeredCorrectly = false;
 	}
 	
@@ -41,6 +46,8 @@ public class PlayerStateMachine : MonoBehaviour {
         {
             case (TurnState.ANSWERING):
             answeredCorrectly = false;
+            answered = false;
+            pb.unanswered();
             if(!madeProblem)
             {
                 makeProblem();
@@ -48,28 +55,38 @@ public class PlayerStateMachine : MonoBehaviour {
             break;
 
             case (TurnState.WAITING):
-            //PERFORM ANIMATING ENERGY TANK LEVEL HERE
-            answeredCorrectly = checkAnswer();
-            madeProblem = false;
-            currentState = TurnState.ACTION;
+            if(startValue != playerAnswer)
+            {
+                if(problemGenerator.IsMultiplication())
+                    startValue++;
+                else startValue--;
+
+                energyTank.setValue(startValue);
+            }
+            else
+            {
+
+                checkAnswer();
+
+                madeProblem = false;
+                currentState = TurnState.ACTION;
+            }
+
+
             break;
 
             case (TurnState.ACTION):
-
-            currentState = TurnState.ANSWERING;
-
             break;
 
             case (TurnState.DEAD):
 
             break;
+
+            default:
+            break;
         }
 
 	}
-
-    void UpgradeProgressBar(){
-
-    }
 
     private void makeProblem()
     {
@@ -91,6 +108,7 @@ public class PlayerStateMachine : MonoBehaviour {
             energyTank.setValue(problemGenerator.GetFirstOperand());
             energyTank.setupDivision();
         }
+        startValue = problemGenerator.GetFirstOperand();
         madeProblem = true;
         answerSlider.interactable = true;
     }
@@ -98,7 +116,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public void answerProblem()
     {
         answerSlider.interactable = false;
-
+        answered = true;
         int secondOperandAttempt = Mathf.RoundToInt(answerSlider.value);
         int firstOperand = problemGenerator.GetFirstOperand();
         if(problemGenerator.IsMultiplication()) {
@@ -108,21 +126,31 @@ public class PlayerStateMachine : MonoBehaviour {
             playerAnswer = firstOperand / secondOperandAttempt;
         }
         currentState = TurnState.WAITING;
-
     }
 
-    public bool checkAnswer()
+    public void checkAnswer()
     {
         bool isCorrect;
         if(playerAnswer == problemGenerator.GetAnswer()) {
             Debug.Log("Correct!");
             isCorrect =true;
+            pb.correct();
         }
         else {
             Debug.Log("Wrong!");
             isCorrect = false;
+            pb.wrong();
         }
+        
+        answeredCorrectly = isCorrect;
+    }
 
-        return isCorrect;
+    IEnumerator Wait(float duration)
+    {
+        //This is a coroutine
+       Debug.Log("Start Wait() function. The time is: "+Time.time);
+        Debug.Log( "Float duration = "+duration);
+         yield return new WaitForSeconds(duration);   //Wait
+        Debug.Log("End Wait() function and the time is: "+Time.time);
     }
 }

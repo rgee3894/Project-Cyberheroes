@@ -244,6 +244,16 @@ Prefab:
       propertyPath: answerSlider
       value: 
       objectReference: {fileID: 1120714656}
+    - target: {fileID: 114931273790136802, guid: 6b9bfb73d6796d3428598337f0d0aa6e,
+        type: 2}
+      propertyPath: pb
+      value: 
+      objectReference: {fileID: 394895308}
+    - target: {fileID: 114931273790136802, guid: 6b9bfb73d6796d3428598337f0d0aa6e,
+        type: 2}
+      propertyPath: currentState
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b9bfb73d6796d3428598337f0d0aa6e, type: 2}
   m_IsPrefabParent: 0
@@ -2129,6 +2139,7 @@ GameObject:
   - component: {fileID: 394895305}
   - component: {fileID: 394895307}
   - component: {fileID: 394895306}
+  - component: {fileID: 394895308}
   m_Layer: 0
   m_Name: Progress Bar
   m_TagString: Untagged
@@ -2166,7 +2177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607844, g: 0.56078434, b: 0, a: 1}
+  m_Color: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2178,7 +2189,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &394895307
@@ -2187,6 +2198,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 394895304}
+--- !u!114 &394895308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 394895304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6a91fa6953f6d4b8bf9222fb639736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &407743797
 Prefab:
   m_ObjectHideFlags: 0
@@ -3077,6 +3099,7 @@ MonoBehaviour:
   setupPanel: {fileID: 2128981608}
   battlePanel: {fileID: 1475590669}
   player: {fileID: 1366199882}
+  enemy: {fileID: 0}
 --- !u!224 &540761647
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10751,6 +10774,10 @@ Prefab:
     - target: {fileID: 1645322389777734, guid: 254aef22cf7f6064e9fc4c2f48a26745, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645322389777734, guid: 254aef22cf7f6064e9fc4c2f48a26745, type: 2}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 254aef22cf7f6064e9fc4c2f48a26745, type: 2}

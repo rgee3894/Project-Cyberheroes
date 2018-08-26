@@ -10,13 +10,15 @@ public class GameManager : MonoBehaviour
     public GameObject setupPanel, battlePanel;
 
     public PlayerStateMachine player; 
+    public EnemyStateMachine enemy;
 
     private ProblemGenerator pg; 
 
     // Use this for initialization
     void Start()
     {
-
+        setupPhase = false;
+        battlePhase = false;
     }
 
     // Update is called once per frame
@@ -26,14 +28,27 @@ public class GameManager : MonoBehaviour
         {
             setupPanel.SetActive(true);
             battlePanel.SetActive(false);
+            
         }
         else if(battlePhase)
         {
             
             setupPanel.SetActive(false);
             battlePanel.SetActive(true);
+
+            //If player answered correctly, player attack monster (player.player.attack(enemy.monster);)
+            //else, monster attack player
+
+            //if player health > 0
+            ////if monster health <= 0, Show win screen.
+            ////else change state to ANSWERING
+            //else Change state to DEAD. Show lose screen.
+
+            //player.currentState = PlayerStateMachine.TurnState.ANSWERING;
+
         }
 
+        
         if(player.currentState == PlayerStateMachine.TurnState.ACTION)
         {
             setupPhase = false;
@@ -44,6 +59,8 @@ public class GameManager : MonoBehaviour
             setupPhase = true;
             battlePhase = false;
         }
+        
+        
 
     }
 
