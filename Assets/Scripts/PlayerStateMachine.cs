@@ -96,6 +96,21 @@ public class PlayerStateMachine : MonoBehaviour {
         this.anim.Play("Kick");
     }
 
+    public void damageAnim()
+    {
+        this.anim.Play("Damage");
+    }
+
+    public void winAnim()
+    {
+        this.anim.Play("Win");
+    }
+    public void dieAnim()
+    {
+        this.anim.Play("Die");
+    }
+
+
     private void makeProblem()
     {
         problemGenerator = new ProblemGenerator();
@@ -153,7 +168,7 @@ public class PlayerStateMachine : MonoBehaviour {
         answeredCorrectly = isCorrect;
     }
 
-    IEnumerator Wait(float duration)
+    public IEnumerator Wait(float duration)
     {
         //This is a coroutine
        Debug.Log("Start Wait() function. The time is: "+Time.time);
