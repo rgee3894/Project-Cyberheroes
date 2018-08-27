@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public SimpleHealthBar enemyHealthBar;
 
     private float timer;
-    private float duration = 1.5f;
+    private float duration = 5.5f;
     private bool startTimer, battleFinished;
 
     // Use this for initialization
@@ -102,12 +102,18 @@ public class GameManager : MonoBehaviour
 
     private void Battle()
     {
-        if(player.answeredCorrectly)
+        //Know distance of player and monter from one another
+        Vector3 monster = GameObject.Find("Slime_Green").transform.position;
+        Vector3 mecha = GameObject.Find("Mecha").transform.position;
+
+        if (player.answeredCorrectly)
         {
             Debug.Log("Player attacks monster!");
-            player.attackAnim(); //PERFORM PLAYER ATTACK ANIMATION HERE
+
+            player.attackAnim(monster); //PERFORM PLAYER ATTACK ANIMATION HERE
             Debug.Log("Player attack animation!");
-            player.mecha.Attack(enemy.monster);              
+            player.mecha.Attack(enemy.monster);
+           
             enemy.damageAnim();//PERFORM ENEMY HURT ANIMATION HERE
             Debug.Log("Monster damaged animation!");
             Debug.Log("Enemy Health: " + enemy.monster.GetHealth() + "/" + enemy.monster.GetMaxHealth());
@@ -117,7 +123,7 @@ public class GameManager : MonoBehaviour
         else
         {   
             Debug.Log("Monster attacks player!");
-            enemy.attackAnim();//PERFORM ENEMY ATTACK ANIMATION HERE
+            enemy.attackAnim(mecha);//PERFORM ENEMY ATTACK ANIMATION HERE
             Debug.Log("Monster attack animation!");
             player.mecha.TakeDamage(enemy.monster);
             player.damageAnim();//PERFORM PLAYER HURT ANIMATION HERE IF ANY
