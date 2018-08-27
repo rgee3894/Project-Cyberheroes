@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerStateMachine : MonoBehaviour {
 
-    public Player player = new Player();
+    public Player mecha = new Player();
 
     private ProblemGenerator problemGenerator;
 
@@ -25,6 +25,7 @@ public class PlayerStateMachine : MonoBehaviour {
         WAITING,
         ACTION,
         DEAD,
+        WIN,
 
         START
     }
@@ -33,17 +34,28 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public bool madeProblem;
 
+    private Animator anim;
+
+    private float timer; 
+    private float duration = 0.5f;
+    private bool startTimer;
+
 
 	// Use this for initialization
 	void Start () {
 		currentState = TurnState.START;
         answeredCorrectly = false;
+        anim = this.gameObject.GetComponent<Animator>();
+        startTimer = false;
+        timer = duration;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         switch (currentState)
         {
+            
+            //During setup phase where the problem is made and shown to the player.
             case (TurnState.ANSWERING):
             answeredCorrectly = false;
             answered = false;
@@ -54,8 +66,10 @@ public class PlayerStateMachine : MonoBehaviour {
             }
             break;
 
+            //During setup phase where the player answered. 
+            //The energy tank animation occurs here and also checking of the answer.
             case (TurnState.WAITING):
-            if(startValue != playerAnswer)
+            if(startValue != playerAnswer)//If the energy tank is not yet done
             {
                 if(problemGenerator.IsMultiplication())
                     startValue++;
@@ -63,16 +77,25 @@ public class PlayerStateMachine : MonoBehaviour {
 
                 energyTank.setValue(startValue);
             }
-            else
+            else //If animating the energy tank is done
             {
+                checkAnswer();//Check the answer
 
-                checkAnswer();
-
-                madeProblem = false;
-                currentState = TurnState.ACTION;
+                if(startTimer)
+                {
+                    //Time delay here
+                    timer -= Time.deltaTime;
+                    if(timer <= 0.0f)
+                    {
+                        startTimer = false;
+                        timer = duration;
+                        madeProblem = false;
+                        currentState = TurnState.ACTION; //This makes the GameManager go to Battle Phase
+                        
+                    }
+                }
+                
             }
-
-
             break;
 
             case (TurnState.ACTION):
@@ -82,11 +105,64 @@ public class PlayerStateMachine : MonoBehaviour {
 
             break;
 
+            case (TurnState.WIN):
+            break;
+
+            case (TurnState.START):
+            break;
+
             default:
             break;
         }
 
 	}
+
+    public void attackAnim()
+    {
+        //Randomize between kickAnim, shootAnim or punchAnim randomize using Random.int(0,100)
+        //Then divide the chances by 3
+        
+    }
+
+    private void kickAnim()
+    {
+        //Running/Walking forward animation
+        //Move until near to the enemy
+        this.anim.Play("Kick");
+        //PLAY KICK SFX HERE
+        //Walk backward to original spot
+    }
+
+    private void shootAnim()
+    {
+        //There should be Shooting state in the Player Animator
+        //Shooting animation
+        //PLAY SHOOT SFX HERE
+    }
+
+    private void punchAnim()
+    {
+        //There should be Punching state in the Player Animator
+        //Move until near to the enemy
+        //Play punch animation
+        //PLAY PUNCH SFX HERE
+        //Walk backward to original spot
+    }
+
+    public void damageAnim()
+    {
+        this.anim.Play("Damage");
+    }
+
+    public void winAnim()
+    {
+        this.anim.Play("Win");
+    }
+    public void dieAnim()
+    {
+        this.anim.Play("Die");
+    }
+
 
     private void makeProblem()
     {
@@ -135,22 +211,16 @@ public class PlayerStateMachine : MonoBehaviour {
             Debug.Log("Correct!");
             isCorrect =true;
             pb.correct();
+            //PLAY CORRECT SOUND HERE
         }
         else {
             Debug.Log("Wrong!");
             isCorrect = false;
             pb.wrong();
+            //PLAY WRONG SOUND HERE
         }
         
         answeredCorrectly = isCorrect;
-    }
-
-    IEnumerator Wait(float duration)
-    {
-        //This is a coroutine
-       Debug.Log("Start Wait() function. The time is: "+Time.time);
-        Debug.Log( "Float duration = "+duration);
-         yield return new WaitForSeconds(duration);   //Wait
-        Debug.Log("End Wait() function and the time is: "+Time.time);
+        startTimer = true;
     }
 }

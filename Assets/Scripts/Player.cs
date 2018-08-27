@@ -9,25 +9,39 @@ public class Player{
     private string name;
     private int damage;
 
+    private int maxHealth;
+
+
     public Player()
     {
-        this.health = 200;
-        this.damage = 0;
+        maxHealth = 200;
+        this.health = this.maxHealth;
+        damage = 40;
     }
 
-    public int getDamage()
+    public int GetDamage()
     {
         return this.damage;
     }
 
-    private void takeDamage(Enemy monster)
+    public void TakeDamage(Enemy monster)
     {
-        this.health -= monster.getDamage();
+        this.health -= monster.GetDamage();
     }
 
-    public void attack(Enemy monster)
+    public void Attack(Enemy monster)
     {
-        monster.takeDamage(this);
+        monster.TakeDamage(this);
+    }
+
+    public int GetHealth()
+    {
+        return this.health;
+    }
+
+    public int GetMaxHealth()
+    {
+        return this.maxHealth;
     }
 
 }
