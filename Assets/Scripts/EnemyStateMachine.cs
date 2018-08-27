@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStateMachine : MonoBehaviour {
     public Enemy monster = new Enemy();
     private Animator anim;
+    Vector3 pos,origin;
 
     public enum TurnState
     {
@@ -22,6 +23,8 @@ public class EnemyStateMachine : MonoBehaviour {
     void Start () {
         currentState = TurnState.START;
         anim = this.gameObject.GetComponent<Animator>();
+        pos = transform.position;
+        origin = pos;
     }
 
     // Update is called once per frame
@@ -49,14 +52,49 @@ public class EnemyStateMachine : MonoBehaviour {
         } */
     }
 
-    public void attackAnim()
+    public void attackAnim(Vector3 mecha)
     {
+        Debug.Log("monster new position after moving backward: " + pos);
         //Moving forward animation
         //Move until near to the enemy
+        moveForwardAnim(mecha);
         this.anim.Play("Attack");
         Debug.Log("Monster attack animation");
+        moveBackwardAnim();
         //PLAY MONSTER ATTACK SFX
         //Move backward to original spot
+        Debug.Log("monster new position after moving backward: " + pos);
+        Debug.Log("monster pos and origin: " + pos + " " + origin);
+    }
+
+    private void moveForwardAnim(Vector3 mecha)
+    {
+
+
+        while (pos.x > (mecha.x + 2.5f))
+        {
+            //this.anim.SetTrigger("isMovingForward");
+            this.anim.Play("MoveForward");
+
+            pos.x = pos.x - 0.50f;
+            transform.position = pos;
+        }
+
+
+    }
+
+    public void moveBackwardAnim()
+    {
+
+
+        while (pos.x != origin.x)
+        {
+            this.anim.Play("MoveBackwards");
+            pos.x = pos.x + 0.50f;
+            transform.position = pos;
+        }
+
+
     }
 
     public void damageAnim()
