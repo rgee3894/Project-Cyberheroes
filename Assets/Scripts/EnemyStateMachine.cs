@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyStateMachine : MonoBehaviour {
     public Enemy monster = new Enemy();
+
+    public AudioSource sfxAttack, sfxHurt, sfxDeath;
+
     private Animator anim;
     Vector3 pos,origin;
 
@@ -62,6 +65,7 @@ public class EnemyStateMachine : MonoBehaviour {
         Debug.Log("Monster attack animation");
         moveBackwardAnim();
         //PLAY MONSTER ATTACK SFX
+        sfxAttack.Play();
         //Move backward to original spot
         Debug.Log("monster new position after moving backward: " + pos);
         Debug.Log("monster pos and origin: " + pos + " " + origin);
@@ -100,12 +104,14 @@ public class EnemyStateMachine : MonoBehaviour {
     public void damageAnim()
     {
         this.anim.Play("Damage");
+        sfxHurt.Play();
         Debug.Log("Monster attack animation");
     }
 
     public void deathAnim()
     {
         this.anim.Play("Die");
+        sfxDeath.Play();
         Debug.Log("Monster attack animation");
     }
 
