@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public SimpleHealthBar enemyHealthBar;
 
+
     private float timer;
     private float duration = 1.5f;
     private bool startTimer, battleFinished;
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour
         battleFinished = true;
         startTimer = true;
     }
+
 
 
 
