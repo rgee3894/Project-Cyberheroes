@@ -15117,6 +15117,21 @@ Prefab:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114063221184306704, guid: 254aef22cf7f6064e9fc4c2f48a26745,
+        type: 2}
+      propertyPath: sfxAttack
+      value: 
+      objectReference: {fileID: 1425673822}
+    - target: {fileID: 114063221184306704, guid: 254aef22cf7f6064e9fc4c2f48a26745,
+        type: 2}
+      propertyPath: sfxHurt
+      value: 
+      objectReference: {fileID: 206317137}
+    - target: {fileID: 114063221184306704, guid: 254aef22cf7f6064e9fc4c2f48a26745,
+        type: 2}
+      propertyPath: sfxDeath
+      value: 
+      objectReference: {fileID: 1002719012}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 254aef22cf7f6064e9fc4c2f48a26745, type: 2}
   m_IsPrefabParent: 0
