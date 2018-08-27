@@ -15,6 +15,9 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public PowerBar pb;
 
+    public AudioSource sfxKick, sfxShoot, sfxPunch, sfxDamage;
+    public AudioSource sfxWin, sfxLose, sfxCorrect, sfxWrong;
+
     private int playerAnswer, startValue;
 
     public bool answeredCorrectly, answered;
@@ -130,6 +133,7 @@ public class PlayerStateMachine : MonoBehaviour {
         //Move until near to the enemy
         this.anim.Play("Kick");
         //PLAY KICK SFX HERE
+        sfxKick.Play();
         //Walk backward to original spot
     }
 
@@ -138,6 +142,7 @@ public class PlayerStateMachine : MonoBehaviour {
         //There should be Shooting state in the Player Animator
         //Shooting animation
         //PLAY SHOOT SFX HERE
+        sfxShoot.Play();
     }
 
     private void punchAnim()
@@ -146,21 +151,25 @@ public class PlayerStateMachine : MonoBehaviour {
         //Move until near to the enemy
         //Play punch animation
         //PLAY PUNCH SFX HERE
+        sfxPunch.Play();
         //Walk backward to original spot
     }
 
     public void damageAnim()
     {
         this.anim.Play("Damage");
+        sfxDamage.Play();
     }
 
     public void winAnim()
     {
         this.anim.Play("Win");
+        sfxWin.Play();
     }
     public void dieAnim()
     {
         this.anim.Play("Die");
+        sfxLose.Play();
     }
 
 
@@ -212,12 +221,14 @@ public class PlayerStateMachine : MonoBehaviour {
             isCorrect =true;
             pb.correct();
             //PLAY CORRECT SOUND HERE
+            sfxCorrect.Play();
         }
         else {
             Debug.Log("Wrong!");
             isCorrect = false;
             pb.wrong();
             //PLAY WRONG SOUND HERE
+            sfxWrong.Play();
         }
         
         answeredCorrectly = isCorrect;
