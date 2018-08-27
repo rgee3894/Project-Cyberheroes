@@ -51,8 +51,12 @@ public class EnemyStateMachine : MonoBehaviour {
 
     public void attackAnim()
     {
+        //Moving forward animation
+        //Move until near to the enemy
         this.anim.Play("Attack");
         Debug.Log("Monster attack animation");
+        //PLAY MONSTER ATTACK SFX
+        //Move backward to original spot
     }
 
     public void damageAnim()
