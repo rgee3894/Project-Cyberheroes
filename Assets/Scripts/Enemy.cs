@@ -7,27 +7,36 @@ using UnityEngine;
 public class Enemy{
 
     private int health;
+
+    private int maxHealth;
     private int damage;
 
 
     public Enemy()
     {
-        this.health = 200;
+        this.maxHealth = 200;
+        this.health = maxHealth;
         this.damage = 20;
     }
 
-    public void takeDamage(Player hero)
+    public void TakeDamage(Player hero)
     {
-        this.health -= hero.getDamage();
+        this.health -= hero.GetDamage();
     }
 
-    public int getDamage()
+    public int GetDamage()
     {
         return this.damage;
     }
 
-    public int getHealth()
+
+    public int GetHealth()
     {
         return this.health;
+    }
+
+    public int GetMaxHealth()
+    {
+        return this.maxHealth;
     }
 }
