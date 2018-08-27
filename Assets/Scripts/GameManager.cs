@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     public bool setupPhase, battlePhase;
-    public GameObject setupPanel, battlePanel;
+    public GameObject setupPanel, battlePanel, winScreen, loseScreen;
 
     public PlayerStateMachine player; 
     public EnemyStateMachine enemy;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
                             player.currentState = PlayerStateMachine.TurnState.WIN;
                             enemy.deathAnim();
                             player.winAnim();
-                            //SHOW WIN SCREEN HERE
+                            winScreen.SetActive(true);
                         }
                         else
                         {
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
                     {
                         player.dieAnim();
                         player.currentState = PlayerStateMachine.TurnState.DEAD;
-                        //SHOW LOSE SCREEN HERE
+                        loseScreen.SetActive(false);
                     }
                     battleFinished = false;
                 }
