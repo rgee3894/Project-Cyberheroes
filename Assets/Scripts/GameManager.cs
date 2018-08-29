@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player attacks monster!");
 
             player.attackAnim(monster); //PERFORM PLAYER ATTACK ANIMATION HERE
+
             Debug.Log("Player attack animation!");
             player.mecha.Attack(enemy.monster);
            
