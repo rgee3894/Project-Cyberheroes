@@ -21,6 +21,8 @@ public class PlayerStateMachine : MonoBehaviour {
     private int playerAnswer, startValue;
 
     public bool answeredCorrectly, answered;
+
+    List<Animation> animations;
   
 
     public enum TurnState
@@ -128,30 +130,35 @@ public class PlayerStateMachine : MonoBehaviour {
     {
         //Randomize between kickAnim, shootAnim or punchAnim randomize using Random.int(0,100)
         //Then divide the chances by 3
-        int attackprob = Random.Range(0, 100);
+        //int attackprob = Random.Range(0, 100);
 
-        if (attackprob >= 0 && attackprob < 33)
+        /*if (attackprob >= 0 && attackprob < 33)
             kickAnim(monster);
         else if (attackprob >= 33 && attackprob < 66)
             shootAnim();
         else
             punchAnim(monster);
 
-        //this.anim.Play("Idle");
+        this.anim.Play("Idle");
+        */
+        shootAnim();
     }
 
     private void kickAnim(Vector3 monster)
     {
         Debug.Log("Kicking!");
-        //while (pos.x < monster.x)
+        Debug.Log("mecha old position before moving forward: " + pos);
         moveForwardAnim(monster);//Running/Walking forward animation
         //Move until near to the enemy
+
         Debug.Log("mecha new position after moving forward: "+ pos);
-        this.anim.Play("isKicking");
+        this.anim.Play("Kick");
+
         //PLAY KICK SFX HERE
         sfxKick.Play();
+
         //Walk backward to original spot
-        moveBackwardAnim();//Walk backward to original spot
+        //moveBackwardAnim();//Walk backward to original spot
         Debug.Log("mecha new position after moving backward: " + pos);
         Debug.Log("mecha pos and origin: " + pos + " "+ origin);
         
@@ -159,16 +166,16 @@ public class PlayerStateMachine : MonoBehaviour {
 
     private void moveForwardAnim(Vector3 monster)
     {
-        
 
-        while (pos.x < (monster.x - 2.5f))
-        {
-            //this.anim.SetTrigger("isMovingForward");
-            this.anim.Play("MoveForward");
 
-            pos.x = pos.x + 0.50f;
-            transform.position = pos;
-        }
+         while (pos.x < (monster.x - 2.5f))
+         {
+             //this.anim.SetTrigger("isMovingForward");
+             this.anim.Play("MoveForward");
+
+             
+             transform.position = pos;
+         }
 
    
     }
@@ -187,7 +194,7 @@ public class PlayerStateMachine : MonoBehaviour {
     {
         Debug.Log("Shooting!");
         //There should be Shooting state in the Player Animator
-        this.anim.Play("Shoot");//Shooting animation
+        this.anim.Play("ReadyShoot");//Shooting animation
         //PLAY SHOOT SFX HERE
         sfxShoot.Play();
     }
@@ -211,7 +218,7 @@ public class PlayerStateMachine : MonoBehaviour {
         //moveBackwardAnim();//Walk backward to original spot
         Debug.Log("mecha new position after moving backward: " + pos);
         Debug.Log("mecha pos and origin: " + pos + " " + origin);
-        moveBackwardAnim();
+        //moveBackwardAnim();
 
     }
 
